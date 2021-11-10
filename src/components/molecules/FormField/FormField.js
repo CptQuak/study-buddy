@@ -29,7 +29,6 @@ const FormField = ({ onChange, value, label, name, id, type = 'text' }) => {
     </Wrapper>
   );
 };
-
 FormField.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
