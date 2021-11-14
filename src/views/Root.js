@@ -10,7 +10,7 @@ import {
   Navigate,
 } from 'react-router-dom';
 import MainTemplate from 'components/template/MainTemplate/MainTemplate';
-import Dashboard from './Dashboard';
+import Dashboard from '../components/template/Dashboard/Dashboard';
 import AddUser from './AddUser';
 
 const Root = () => {
@@ -24,7 +24,7 @@ const Root = () => {
               <Route
                 exact
                 path="/"
-                element={<Navigate replace to="/group" />}
+                element={<Navigate replace to="/group/" />}
               ></Route>
               <Route path="/add-user" element={<AddUser />}></Route>
               <Route path="/group/:id" element={<Dashboard />}></Route>

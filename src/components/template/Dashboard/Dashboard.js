@@ -3,8 +3,13 @@ import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
 import UsersList from 'components/organisms/UsersList/UsersList';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { UserShape } from 'types';
+import {
+  DashboardGroupInfo,
+  DashboardNavbarWrapper,
+  StyledLink,
+} from './Dashboard.styled';
 
 const Dashboard = () => {
   const [students, setStudents] = useState([]);
@@ -26,16 +31,19 @@ const Dashboard = () => {
       .catch((e) => console.log(e));
   }, [id, groups]);
   return (
-    <ViewWrapper>
-      <nav>
+    <>
+      <DashboardNavbarWrapper>
+        <DashboardGroupInfo>Group {id || groups[0]}</DashboardGroupInfo>
         {groups.map((group) => (
-          <Link key={group} to={`/group/${group}`}>
+          <StyledLink key={group} to={`/group/${group}`}>
             {group}
-          </Link>
+          </StyledLink>
         ))}
-      </nav>
-      <UsersList users={students} />
-    </ViewWrapper>
+      </DashboardNavbarWrapper>
+      <ViewWrapper>
+        <UsersList users={students} />
+      </ViewWrapper>
+    </>
   );
 };
 
