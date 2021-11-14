@@ -1,4 +1,5 @@
-import React from 'react';
+import { useStudents } from 'hooks/useStudents';
+import React, { useEffect } from 'react';
 import { useState } from 'react/cjs/react.development';
 import {
   SearchBarWrapper,
@@ -7,12 +8,22 @@ import {
   SearchInputWrapper,
   SearchContent,
 } from './SearchBar.styled';
-
+import debounce from 'lodash.debounce';
 const SearchBar = () => {
-  const [query, setQuery] = useState('');
-  const handleInputChange = (e) => {
-    setQuery(e.target.value);
-  };
+  const [searchPhrase, setSearchPhrase] = useState('');
+  const [matchingStudents, setMatchingStudents] = useState('');
+  const { findStudents } = useStudents();
+
+  const getMatchingStudents = debounce(async (e) => {
+    const { students } = await findStudents(searchPhrase);
+    setMatchingStudents(students);
+  }, 500);
+  useEffect(() => {
+    if (!searchPhrase) return;
+    getMatchingStudents(searchPhrase);
+    console.log(matchingStudents);
+  }, [searchPhrase]);
+
   return (
     <SearchBarWrapper>
       <StatusInfo>
@@ -23,11 +34,18 @@ const SearchBar = () => {
       </StatusInfo>
       <SearchInputWrapper>
         <SearchInput
-          onChange={handleInputChange}
-          value={query}
-          active={query.length > 2 ? true : false}
+          onChange={(e) => setSearchPhrase(e.target.value)}
+          value={searchPhrase}
+          name="Search"
+          id="Search"
         />
-        {query.length > 2 && <SearchContent>asd</SearchContent>}
+        {searchPhrase && matchingStudents.length ? (
+          <SearchContent>
+            {matchingStudents.map((student) => (
+              <li key={student.id}>{student.name}</li>
+            ))}
+          </SearchContent>
+        ) : null}
       </SearchInputWrapper>
     </SearchBarWrapper>
   );

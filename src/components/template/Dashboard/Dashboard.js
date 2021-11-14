@@ -1,35 +1,19 @@
-import axios from 'axios';
 import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
 import UsersList from 'components/organisms/UsersList/UsersList';
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { UserShape } from 'types';
 import {
   DashboardGroupInfo,
   DashboardNavbarWrapper,
   StyledLink,
 } from './Dashboard.styled';
+import { useStudents } from 'hooks/useStudents';
 
 const Dashboard = () => {
-  const [students, setStudents] = useState([]);
-  const [groups, setGroups] = useState([]);
   const { id } = useParams();
-
-  useEffect(() => {
-    axios
-      .get('/groups')
-      .then(({ data }) => setGroups(data.groups))
-      .catch((e) => console.log(e));
-  }, []);
-  useEffect(() => {
-    axios
-      .get(`/students/${id || groups[0]}`)
-      .then(({ data }) => {
-        setStudents(data.students);
-      })
-      .catch((e) => console.log(e));
-  }, [id, groups]);
+  const { groups } = useStudents({ groupId: id });
+  if (!id && groups.length > 0) return <Navigate to={`/group/${groups[0]}`} />;
   return (
     <>
       <DashboardNavbarWrapper>
@@ -41,7 +25,7 @@ const Dashboard = () => {
         ))}
       </DashboardNavbarWrapper>
       <ViewWrapper>
-        <UsersList users={students} />
+        <UsersList />
       </ViewWrapper>
     </>
   );

@@ -26,7 +26,6 @@ const Root = () => {
                 path="/"
                 element={<Navigate replace to="/group/" />}
               ></Route>
-              <Route path="/add-user" element={<AddUser />}></Route>
               <Route path="/group/:id" element={<Dashboard />}></Route>
               <Route path="/group" element={<Dashboard />}></Route>
             </Routes>
