@@ -10,19 +10,25 @@ export const SearchBarWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   padding: 0 40px;
-  ${Input} {
-    font-size: ${({ theme }) => theme.fontSize.xl};
-    width: 100%;
-    max-width: 350px;
-    border: 2px solid ${({ theme }) => theme.colors.lightPurple};
-    padding-left: 15px;
-  }
 `;
 export const StatusInfo = styled.div`
   color: ${({ theme }) => theme.colors.darkGrey};
   font-size: ${({ theme }) => theme.fontSize.l};
   margin-right: 40px;
   p {
-    margin: 5px;
+    margin: 5px 0;
   }
 `;
+export const SearchInputWrapper = styled.div`
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+`;
+export const SearchInput = styled(Input)`
+  font-size: ${({ theme }) => theme.fontSize.l};
+  width: 100%;
+  border: 2px solid ${({ theme }) => theme.colors.lightPurple};
+  padding-left: 20px;
+`;
+
+export const SearchContent = styled.div``;

@@ -12,5 +12,5 @@ export const Wrapper = styled.div`
   grid-column: 2/3;
   border-left: 1px solid ${({ theme }) => theme.colors.darkPurple};
   gap: 24px;
-  padding-left: 24px;
+  padding: 0 40px;
 `;

@@ -1,8 +1,18 @@
 import React from 'react';
-import { Input } from 'components/atoms/Input/Input';
-import { SearchBarWrapper, StatusInfo } from './SearchBar.styled';
+import { useState } from 'react/cjs/react.development';
+import {
+  SearchBarWrapper,
+  StatusInfo,
+  SearchInput,
+  SearchInputWrapper,
+  SearchContent,
+} from './SearchBar.styled';
 
 const SearchBar = () => {
+  const [query, setQuery] = useState('');
+  const handleInputChange = (e) => {
+    setQuery(e.target.value);
+  };
   return (
     <SearchBarWrapper>
       <StatusInfo>
@@ -11,7 +21,14 @@ const SearchBar = () => {
           <strong>Teacher</strong>
         </p>
       </StatusInfo>
-      <Input />
+      <SearchInputWrapper>
+        <SearchInput
+          onChange={handleInputChange}
+          value={query}
+          active={query.length > 2 ? true : false}
+        />
+        {query.length > 2 && <SearchContent>asd</SearchContent>}
+      </SearchInputWrapper>
     </SearchBarWrapper>
   );
 };
