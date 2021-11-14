@@ -3,7 +3,7 @@ import { screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { renderWithProviders } from 'helpers/renderWithProviders';
 import AddUser from './AddUser';
-import Dashboard from './Dashboard';
+import Dashboard from '../components/template/Dashboard/Dashboard';
 
 describe('Input with Button', () => {
   it.skip('Renders the component', () => {

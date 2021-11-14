@@ -43,12 +43,10 @@ const NewsSection = () => {
           },
         }) => {
           setArticles(allArticles);
-          console.log('git');
         }
       )
       .catch((err) => {
         setErorr(true);
-        console.log('niegit');
       });
   }, []);
   return (

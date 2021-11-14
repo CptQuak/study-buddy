@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const ViewWrapper = styled.div`
-  margin: 25px;
   background-color: ${({ theme }) => theme.colors.white};
   width: 100%;
   max-width: 500px;
