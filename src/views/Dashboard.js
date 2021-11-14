@@ -1,16 +1,40 @@
+import axios from 'axios';
 import { ViewWrapper } from 'components/molecules/ViewWrapper/ViewWrapper';
 import UsersList from 'components/organisms/UsersList/UsersList';
 import PropTypes from 'prop-types';
+import { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { UserShape } from 'types';
-import { useContext } from 'react/cjs/react.development';
-import { UsersContext } from 'providers/UsersProvider';
 
 const Dashboard = () => {
-  const { users } = useContext(UsersContext);
+  const [students, setStudents] = useState([]);
+  const [groups, setGroups] = useState([]);
+  const { id } = useParams();
 
+  useEffect(() => {
+    axios
+      .get('/groups')
+      .then(({ data }) => setGroups(data.groups))
+      .catch((e) => console.log(e));
+  }, []);
+  useEffect(() => {
+    axios
+      .get(`/students/${id || groups[0]}`)
+      .then(({ data }) => {
+        setStudents(data.students);
+      })
+      .catch((e) => console.log(e));
+  }, [id, groups]);
   return (
     <ViewWrapper>
-      <UsersList users={users} />
+      <nav>
+        {groups.map((group) => (
+          <Link key={group} to={`/group/${group}`}>
+            {group}
+          </Link>
+        ))}
+      </nav>
+      <UsersList users={students} />
     </ViewWrapper>
   );
 };

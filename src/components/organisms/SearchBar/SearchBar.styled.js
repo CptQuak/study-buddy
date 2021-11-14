@@ -5,6 +5,7 @@ export const SearchBarWrapper = styled.div`
   grid-row: 1/2;
   grid-column: 2/3;
   border-bottom: 1px solid ${({ theme }) => theme.colors.darkPurple};
+  border-left: 1px solid ${({ theme }) => theme.colors.darkPurple};
   display: flex;
   justify-content: flex-start;
   align-items: center;
