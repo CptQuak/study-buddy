@@ -9,10 +9,18 @@ import {
   StyledLink,
 } from './Dashboard.styled';
 import { useStudents } from 'hooks/useStudents';
+import { useState, useEffect } from 'react';
 
 const Dashboard = () => {
+  const [groups, setGroups] = useState([]);
   const { id } = useParams();
-  const { groups } = useStudents({ groupId: id });
+  const { getGroups } = useStudents();
+  useEffect(() => {
+    (async () => {
+      const groups = await getGroups();
+      setGroups(groups);
+    })();
+  }, [getGroups]);
   if (!id && groups.length > 0) return <Navigate to={`/group/${groups[0]}`} />;
   return (
     <>
