@@ -6,10 +6,19 @@ import { Title } from 'components/atoms/Title/Title';
 import { UserShape } from 'types';
 import { useParams } from 'react-router';
 import { useStudents } from 'hooks/useStudents';
+import { useState, useEffect } from 'react';
 
 const UsersList = () => {
+  const [students, setStudents] = useState([]);
+
   const { id } = useParams();
-  const { students } = useStudents({ groupId: id });
+  const { getStudents } = useStudents();
+  useEffect(() => {
+    (async () => {
+      const students = await getStudents(id);
+      setStudents(students);
+    })();
+  }, [getStudents, id]);
   return (
     <>
       <Title>Students list</Title>
