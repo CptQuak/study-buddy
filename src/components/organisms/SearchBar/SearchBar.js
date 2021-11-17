@@ -21,8 +21,6 @@ const SearchBar = () => {
   }, 500);
   const {
     isOpen,
-    getToggleButtonProps,
-    getLabelProps,
     getMenuProps,
     getInputProps,
     getComboboxProps,
