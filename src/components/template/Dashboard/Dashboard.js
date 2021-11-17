@@ -10,17 +10,31 @@ import {
 } from './Dashboard.styled';
 import { useStudents } from 'hooks/useStudents';
 import { useState, useEffect } from 'react';
+import useModal from 'hooks/useModal';
+import { Title } from 'components/atoms/Title/Title';
+import StudentDetails from 'components/molecules/StudentDetails/StudentDetails';
 
 const Dashboard = () => {
   const [groups, setGroups] = useState([]);
+  const [currentUser, setCurrentUser] = useState([]);
   const { id } = useParams();
-  const { getGroups } = useStudents();
+  const { getGroups, getStudentById } = useStudents();
+  const { Modal, isOpen, handleCloseModal, handleOpenModal } = useModal();
+
   useEffect(() => {
     (async () => {
       const groups = await getGroups();
       setGroups(groups);
     })();
   }, [getGroups]);
+
+  const handleOpenStudentDetails = async (id) => {
+    // setCurrentUser(id);
+    const student = await getStudentById(id);
+    setCurrentUser(student);
+    handleOpenModal();
+  };
+
   if (!id && groups.length > 0) return <Navigate to={`/group/${groups[0]}`} />;
   return (
     <>
@@ -33,7 +47,13 @@ const Dashboard = () => {
         ))}
       </DashboardNavbarWrapper>
       <ViewWrapper>
-        <UsersList />
+        <UsersList handleOpenStudentDetails={handleOpenStudentDetails} />
+        {isOpen ? (
+          <Modal handleClose={handleCloseModal}>
+            {/* <StudentDetails student={currentUser} /> */}
+            <p>pan pe</p>
+          </Modal>
+        ) : null}
       </ViewWrapper>
     </>
   );

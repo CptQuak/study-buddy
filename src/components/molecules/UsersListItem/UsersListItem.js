@@ -6,10 +6,13 @@ import { UserShape } from 'types';
 import { useContext } from 'react/cjs/react.development';
 import { UsersContext } from 'providers/UsersProvider';
 
-const UsersListItem = ({ userData: { average, name, attendance = '0%' } }) => {
+const UsersListItem = ({
+  userData: { average, name, attendance = '0%' },
+  ...props
+}) => {
   const { deleteUser } = useContext(UsersContext);
   return (
-    <Wrapper>
+    <Wrapper {...props}>
       <StyledAverage value={average}>{average}</StyledAverage>
       <StyledInfo>
         <p>
