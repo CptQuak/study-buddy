@@ -11,19 +11,20 @@ import {
 import { useStudents } from 'hooks/useStudents';
 import { useState, useEffect } from 'react';
 import useModal from 'hooks/useModal';
-import { Title } from 'components/atoms/Title/Title';
 import StudentDetails from 'components/molecules/StudentDetails/StudentDetails';
+import Modal from 'components/organisms/Modal/Modal';
 
 const Dashboard = () => {
   const [groups, setGroups] = useState([]);
   const [currentUser, setCurrentUser] = useState([]);
   const { id } = useParams();
   const { getGroups, getStudentById } = useStudents();
-  const { Modal, isOpen, handleCloseModal, handleOpenModal } = useModal();
+  const { isOpen, handleCloseModal, handleOpenModal } = useModal();
 
   useEffect(() => {
     (async () => {
       const groups = await getGroups();
+      console.log(groups);
       setGroups(groups);
     })();
   }, [getGroups]);
@@ -35,25 +36,23 @@ const Dashboard = () => {
     handleOpenModal();
   };
 
-  if (!id && groups.length > 0) return <Navigate to={`/group/${groups[0]}`} />;
+  if (!id && groups.length > 0)
+    return <Navigate to={`/group/${groups[0].id}`} />;
   return (
     <>
       <DashboardNavbarWrapper>
         <DashboardGroupInfo>Group {id || groups[0]}</DashboardGroupInfo>
-        {groups.map((group) => (
-          <StyledLink key={group} to={`/group/${group}`}>
-            {group}
+        {groups.map(({ id }) => (
+          <StyledLink key={id} to={`/group/${id}`}>
+            {id}
           </StyledLink>
         ))}
       </DashboardNavbarWrapper>
       <ViewWrapper>
         <UsersList handleOpenStudentDetails={handleOpenStudentDetails} />
-        {isOpen ? (
-          <Modal handleClose={handleCloseModal}>
-            {/* <StudentDetails student={currentUser} /> */}
-            <p>pan pe</p>
-          </Modal>
-        ) : null}
+        <Modal isOpen={isOpen} handleClose={handleCloseModal}>
+          <StudentDetails student={currentUser} />
+        </Modal>
       </ViewWrapper>
     </>
   );

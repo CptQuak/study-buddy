@@ -11,8 +11,12 @@ const Navigation = () => {
       </Logo>
       <StyledLink to="/group">Dashboard</StyledLink>
       <StyledLink to="/add-user">Add user</StyledLink>
-      <StyledLink to="/asdasdads">Settings</StyledLink>
-      <StyledLink to="/adssadsad">Logout</StyledLink>
+      <StyledLink
+        as="a"
+        onClick={() => localStorage.removeItem('__be_token__')}
+      >
+        Logout
+      </StyledLink>
     </Wrapper>
   );
 };
