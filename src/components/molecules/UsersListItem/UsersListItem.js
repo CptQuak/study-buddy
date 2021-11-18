@@ -25,8 +25,4 @@ const UsersListItem = ({
   );
 };
 
-UsersListItem.propTypes = {
-  userData: PropTypes.shape(UserShape),
-};
-
 export default UsersListItem;

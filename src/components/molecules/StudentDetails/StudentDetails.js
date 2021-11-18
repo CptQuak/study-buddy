@@ -26,12 +26,10 @@ const StudentDetails = ({ student }) => {
         </CourseInfo>
         <GradesInfo>
           <h3>Average grades:</h3>
-          {student.subjects.map((subject) => (
-            <GradeInfo>
-              <p>{subject.name}</p>
-              <StyledAverage value={subject.grade}>
-                {subject.grade}
-              </StyledAverage>
+          {student.grades.map(({ subject, average }) => (
+            <GradeInfo key={subject}>
+              <p>{subject}</p>
+              <StyledAverage value={average}>{average}</StyledAverage>
             </GradeInfo>
           ))}
         </GradesInfo>

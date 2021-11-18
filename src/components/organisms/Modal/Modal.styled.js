@@ -1,16 +1,8 @@
 import styled from 'styled-components';
 import { Button } from 'components/atoms/Button/Button';
+import ReactModal from 'react-modal';
 
-export const FadedBG = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-`;
-
-export const ModalWrapper = styled.div`
+export const ModalWrapper = styled(ReactModal)`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -26,5 +18,8 @@ export const ModalWrapper = styled.div`
   padding: 1rem;
   ${Button} {
     padding: 0.7rem 3.5rem;
+  }
+  &:focus {
+    outline: none;
   }
 `;
