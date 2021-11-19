@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { useError } from './useError';
 
 const AuthContext = React.createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
+  const { dispatchError } = useError();
   useEffect(() => {
     const token = localStorage.getItem('__be_token__');
     if (token) {
@@ -17,14 +18,11 @@ export const AuthProvider = ({ children }) => {
             },
           });
           setUser(res.data);
-        } catch (e) {
-          console.log(e);
-        }
+        } catch (e) {}
       })();
     }
   }, []);
   const signIn = async ({ login, password }) => {
-    console.log(login, password);
     try {
       const res = await axios.post('/login', {
         login,
@@ -32,7 +30,8 @@ export const AuthProvider = ({ children }) => {
       });
       setUser(res.data);
     } catch (e) {
-      console.log(e);
+      console.log('i gowno');
+      dispatchError('Invalid email or password');
     }
   };
   const signOut = () => {
