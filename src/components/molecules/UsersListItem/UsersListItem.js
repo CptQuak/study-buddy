@@ -1,8 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import DeleteButton from 'components/atoms/DeleteButton/DeleteButton';
 import { StyledAverage, StyledInfo, Wrapper } from './UsersListItem.styles';
-import { UserShape } from 'types';
 import { useContext } from 'react/cjs/react.development';
 import { UsersContext } from 'providers/UsersProvider';
 

@@ -34,6 +34,7 @@ export const StyledLink = styled(NavLink)`
   text-align: right;
   margin: 10px 20px 15px auto;
   position: relative;
+  cursor: pointer;
   &.active {
     &::after {
       opacity: 1;
